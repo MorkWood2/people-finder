@@ -1,5 +1,9 @@
 const express = require('express');
+const connectDB = require('./config/db');
 const app = express();
+
+//connect datatbase
+connectDB();
 
 app.get('/', (req, res) =>
   res.json({ msg: 'Welcome to the contact keepr API... ' })
