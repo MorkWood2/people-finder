@@ -15,6 +15,7 @@ const User = require('../models/User');
 router.get('/', auth, async (req, res) => {
   try {
     //mongoose method
+    //get user from db
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {

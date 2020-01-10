@@ -8,10 +8,12 @@ module.exports = function(req, res, next) {
   if (!token) {
     return res.status(401).json({ msg: 'No token, Authorization denied' });
   }
-
+  //if there is a token we have to verify
   try {
+    //token payload will be decoded variable
     const decoded = jwt.verify(token, config.get('jwtSecret'));
-
+    //set user in payload to req.user
+    //so we can access it inside route
     req.user = decoded.user;
     next();
   } catch (err) {

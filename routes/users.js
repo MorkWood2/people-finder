@@ -54,13 +54,14 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
-
+      //jwt payload
+      //user id unique
       const payload = {
         user: {
           id: user.id
         }
       };
-
+      //takes in payload and secret parameters
       jwt.sign(
         payload,
         config.get('jwtSecret'),
@@ -69,6 +70,7 @@ router.post(
         },
         (err, token) => {
           if (err) throw err;
+          //if no error return token
           res.json({ token });
         }
       );
