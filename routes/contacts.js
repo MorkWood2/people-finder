@@ -68,8 +68,12 @@ router.post(
 //@desc       update contacts
 //@access       Private
 
-router.put('/:id', (req, res) => {
-  res.send('update contact');
+router.put('/:id', auth, async (req, res) => {
+  const { name, email, phone, type } = req.body;
+
+  //Build a contact object based on the field submitted
+  const contactFields = {};
+  if (name) contactFields.name = name;
 });
 
 // @route      Delete api/contacts/:id
