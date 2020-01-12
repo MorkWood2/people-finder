@@ -42,13 +42,14 @@ router.post(
       if (user) {
         return res.status(400).json({ msg: 'User already exists' });
       }
-
+      //create new User model in db
       user = new User({
         name,
         email,
         password
       });
 
+      //define encryption
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
