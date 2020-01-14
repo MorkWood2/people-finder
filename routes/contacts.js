@@ -71,20 +71,27 @@ router.post(
 router.put('/:id', auth, async (req, res) => {
   const { name, email, phone, type } = req.body;
 
-  //Build a contact object based on the field submitted
+  //Build a contact object, based on the field submitted
+  //check to see if feilds are submitted
   const contactFields = {};
+  //if name add to contact field
   if (name) contactFields.name = name;
   if (email) contactFields.email = email;
   if (phone) contactFields.phone = phone;
   if (type) contactFields.type = type;
 
   try {
+    // req.params.id === ' /:id '
     let contact = await Contact.findById(req.params.id);
     if (!contact) return res.status(404).json({ msg: 'Contact not found' });
     //make sure user owns contact
+    //check contact.user not equal to logged in user
     if (contact.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorized' });
     }
+    //takes in contact id re.params.id
+    //pass in $set with contact fields
+    //new : true means if contact isn't true create it
     contact = await Contact.findByIdAndUpdate(
       req.params.id,
       { $set: contactFields },
