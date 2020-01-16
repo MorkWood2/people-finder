@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import './App.css';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+
 const App = () => {
   return (
     <Router>
