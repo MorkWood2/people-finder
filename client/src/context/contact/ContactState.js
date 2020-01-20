@@ -62,7 +62,9 @@ const ContactState = props => {
 
   //Clear Filter
 
+  //return our provider we wrap entire app with this context
   return (
+    //initialized state provides data to pass through data tree
     <contactContext.Provider value={{ contacts: state.contacts }}>
       {props.children}
     </contactContext.Provider>
