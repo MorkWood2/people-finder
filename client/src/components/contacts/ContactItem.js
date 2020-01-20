@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 //pass in contact itself as a prop
 const ContactItem = ({ contact }) => {
-  //pull out of the contact prop
+  //pull out of the contact prop thats passed in
   const { id, name, email, phone, type } = contact;
   return (
     <div className='card bg-light'>
