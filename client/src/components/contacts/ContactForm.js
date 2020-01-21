@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import ContactContext from '../../context/contact/ContactContext';
 
 const ContactForm = () => {
+  //global state
   const contactContext = useContext(ContactContext);
 
   const [contact, setContact] = useState({
@@ -13,7 +14,7 @@ const ContactForm = () => {
 
   const { name, email, phone, type } = contact;
 
-  //change componenet state, spread contact state, take current vallue being changed in form (name Attribute), : value is whatever we type in.
+  //change componenet state, spread contact state, take current value being changed in form (name Attribute), : value is whatever we type in.
   const onChange = e =>
     setContact({ ...contact, [e.target.name]: e.target.value });
 
