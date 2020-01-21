@@ -50,6 +50,11 @@ const ContactState = props => {
   const [state, dispatch] = useReducer(contactReducer, initialState);
   // Add Contact
 
+  const addContact = contact => {
+    contact.id = uuid.v4();
+    dispatch({ type: ADD_CONTACT, payload: contact });
+  };
+
   // Delete Contact
 
   //Set Current Contact
@@ -65,7 +70,7 @@ const ContactState = props => {
   //return our provider we wrap entire app with this context
   return (
     //initialized state provides data to pass through data tree
-    <contactContext.Provider value={{ contacts: state.contacts }}>
+    <contactContext.Provider value={{ contacts: state.contacts, addContact }}>
       {props.children}
     </contactContext.Provider>
   );
