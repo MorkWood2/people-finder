@@ -40,7 +40,8 @@ const ContactState = props => {
         phone: '333-333-3333',
         type: 'professional'
       }
-    ]
+    ],
+    current: null
   };
 
   //pull out state and dispatch from our reducer by using useReducer hoook
@@ -63,9 +64,16 @@ const ContactState = props => {
     dispatch({ type: DELETE_CONTACT, payload: id });
   };
   //Set Current Contact
+  const setCurrent = contact => {
+    //dispatch to reducer
+    dispatch({ type: SET_CURRENT, payload: contact });
+  };
 
   //Clear Current Contact
-
+  const clearCurrent = () => {
+    //dispatch to reducer
+    dispatch({ type: CLEAR_CURRENT });
+  };
   //Update Contact
 
   //Filter Contacts
@@ -76,7 +84,14 @@ const ContactState = props => {
   return (
     //initialized state provides data to pass through data tree
     <contactContext.Provider
-      value={{ contacts: state.contacts, addContact, deleteContact }}
+      value={{
+        contacts: state.contacts,
+        current: state.current,
+        addContact,
+        deleteContact,
+        setCurrent,
+        clearCurrent
+      }}
     >
       {props.children}
     </contactContext.Provider>
