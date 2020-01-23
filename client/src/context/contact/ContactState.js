@@ -41,7 +41,8 @@ const ContactState = props => {
         type: 'professional'
       }
     ],
-    current: null
+    current: null,
+    filtered: null
   };
 
   //pull out state and dispatch from our reducer by using useReducer hook
@@ -80,9 +81,14 @@ const ContactState = props => {
     dispatch({ type: UPDATE_CONTACT, payload: contact });
   };
   //Filter Contacts
-
+  const filterContacts = text => {
+    //dispatch to reducer
+    dispatch({ type: FILTER_CONTACTS, payload: text });
+  };
   //Clear Filter
-
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
   //return our provider we wrap entire app with this context
   return (
     //initialized state provides data to pass through data tree
@@ -90,11 +96,14 @@ const ContactState = props => {
       value={{
         contacts: state.contacts,
         current: state.current,
+        filtered: state.filtered,
         addContact,
         deleteContact,
         setCurrent,
         clearCurrent,
-        updateContact
+        updateContact,
+        filterContacts,
+        clearFilter
       }}
     >
       {props.children}

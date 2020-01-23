@@ -20,6 +20,7 @@ const ContactForm = () => {
     }
   }, [contactContext, current]);
 
+  //[state of the form, modified state]
   const [contact, setContact] = useState({
     name: '',
     email: '',
