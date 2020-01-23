@@ -8,14 +8,22 @@ const Contacts = () => {
   const contactContext = useContext(ContactContext);
 
   //pull out contacts from contractContext
-  const { contacts } = contactContext;
+  const { contacts, filtered } = contactContext;
+
+  if (contacts.length === 0) {
+    return <h4>Please add a contact</h4>;
+  }
 
   return (
     <Fragment>
-      {/* {contacts array and loop through} */}
-      {contacts.map(contact => (
-        <ContactItem key={contact.id} contact={contact} />
-      ))}
+      {/* {contacts array and loop through. checking to see if anything in filtered if there is not null means something is in it then we map through that and show contact item} */}
+      {filtered !== null
+        ? filtered.map(contact => (
+            <ContactItem key={contact.id} contact={contact} />
+          ))
+        : contacts.map(contact => (
+            <ContactItem key={contact.id} contact={contact} />
+          ))}
     </Fragment>
   );
 };
