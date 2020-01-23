@@ -44,7 +44,7 @@ const ContactState = props => {
     current: null
   };
 
-  //pull out state and dispatch from our reducer by using useReducer hoook
+  //pull out state and dispatch from our reducer by using useReducer hook
   //state allows to access anything in state
   //dispatch allows us to dispatch objects to the reducer
   //pass in contactReducer and intitalState
