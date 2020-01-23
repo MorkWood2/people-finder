@@ -15,6 +15,14 @@ export default (state, action) => {
         ...state,
         contacts: [...state.contacts, action.payload]
       };
+    case UPDATE_CONTACT:
+      return {
+        ...state,
+        //take contacts array for each contact match ids then return action.payload (updated contact) else return contact as is
+        contacts: state.contacts.map(contact =>
+          contact.id === action.payload.id ? action.payload : contact
+        )
+      };
     case DELETE_CONTACT:
       return {
         ...state,

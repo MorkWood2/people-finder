@@ -5,7 +5,7 @@ const ContactForm = () => {
   //global state
   const contactContext = useContext(ContactContext);
 
-  const { addContact, current } = contactContext;
+  const { addContact, updateContact, clearCurrent, current } = contactContext;
 
   useEffect(() => {
     if (current !== null) {
@@ -35,7 +35,12 @@ const ContactForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    addContact(contact);
+    if (current === null) {
+      addContact(contact);
+    } else {
+      updateContact(contact);
+    }
+
     //clear the form to default
     setContact({
       name: '',
@@ -45,9 +50,15 @@ const ContactForm = () => {
     });
   };
 
+  const clearAll = () => {
+    clearCurrent();
+  };
   return (
     <form onSubmit={onSubmit}>
-      <h2 className='text-primary'> Add Contact </h2>
+      <h2 className='text-primary'>
+        {' '}
+        {current ? 'Edit Contact' : 'Add Contact'}{' '}
+      </h2>
       <input
         type='text'
         placeholder='Name'
@@ -89,11 +100,18 @@ const ContactForm = () => {
       <div>
         <input
           type='submit'
-          value='Add Contact'
+          value={current ? 'Update Contact' : 'Add Contact'}
           className='btn btn-primary btn-block'
           onChange={onChange}
         />
       </div>
+      {current && (
+        <div>
+          <button className='btn ntm-light btn-block' onClick={clearAll}>
+            Clear
+          </button>
+        </div>
+      )}
     </form>
   );
 };
