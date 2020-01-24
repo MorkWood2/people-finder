@@ -15,6 +15,7 @@ export default (state, action) => {
         ...state,
         contacts: [...state.contacts, action.payload]
       };
+
     case UPDATE_CONTACT:
       return {
         ...state,
@@ -24,9 +25,12 @@ export default (state, action) => {
         )
       };
     case DELETE_CONTACT:
+      //return current state filter out contact we want to delete from ui
+      //return all contacts not the current id EX: id:1 it will return id:2 && id:3
       return {
         ...state,
         contacts: state.contacts.filter(
+          //return contacts that are not payload id
           contact => contact.id !== action.payload
         )
       };

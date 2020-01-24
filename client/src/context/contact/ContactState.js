@@ -50,6 +50,7 @@ const ContactState = props => {
   //dispatch allows us to dispatch objects to the reducer
   //pass in contactReducer and intitalState
   const [state, dispatch] = useReducer(contactReducer, initialState);
+  //action payloads
   // Add Contact
 
   const addContact = contact => {
