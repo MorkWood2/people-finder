@@ -15,6 +15,7 @@ import {
 } from '../types';
 
 //create initial state
+//token is stored in browser local storage
 const AuthState = props => {
   const initialState = {
     token: localStorage.getItem('token'),
@@ -30,15 +31,15 @@ const AuthState = props => {
   //pass in contactReducer and intitalState
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  //load user
+  //Load User
 
-  //register user
+  //Register User
 
-  //login user
+  //Login User
 
-  //logout user
+  //Logout User
 
-  //clear Errors
+  //Clear Errors
 
   return (
     //initialized state provides data to pass through data tree
