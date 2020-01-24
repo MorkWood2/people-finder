@@ -7,14 +7,9 @@ import alertReducer from './alertReducer';
 import { SET_ALERT, REMOVE_ALERT } from '../types';
 
 //create initial state
-//token is stored in browser local storage
 const AlertState = props => {
   const initialState = [];
 
-  //pull out state and dispatch from our reducer by using useReducer hook
-  //state allows to access anything in state
-  //dispatch allows us to dispatch objects to the reducer
-  //pass in contactReducer and intitalState
   const [state, dispatch] = useReducer(alertReducer, initialState);
 
   //Set Alert
