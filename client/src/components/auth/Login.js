@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const Login = () => {
+  //[state, modifited state]
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -29,7 +30,7 @@ const Login = () => {
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <input
-            type='email'
+            type='password'
             name='password'
             value={password}
             onChange={onChange}
