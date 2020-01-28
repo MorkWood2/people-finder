@@ -4,6 +4,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utilis/setAuthToken';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -33,7 +34,24 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   //Load User
-  const loadUser = () => console.log('loaduser');
+  //async for request to backend
+  const loadUser = async () => {
+    // load token into global headers
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const res = await axios.get('/api/auth');
+      //res.data = user data
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
+    }
+  };
 
   //Register User
   //since making post req and send data we need headers object
@@ -53,6 +71,8 @@ const AuthState = props => {
         //payload res.data = token
         payload: res.data
       });
+
+      loadUser();
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
@@ -61,7 +81,30 @@ const AuthState = props => {
     }
   };
   //Login User
-  const loginUser = () => console.log('loginuser');
+  const login = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      // res awaits on a promise
+      const res = await axios.post('/api/auth', formData, config);
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        //payload res.data = token
+        payload: res.data
+      });
+
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg
+      });
+    }
+  };
 
   //Logout User
   const logoutUser = () => console.log('logoutuser');
@@ -81,7 +124,7 @@ const AuthState = props => {
         error: state.error,
         register,
         loadUser,
-        loginUser,
+        login,
         logoutUser,
         clearErrors
       }}
