@@ -6,6 +6,8 @@ import axios from 'axios';
 import contactContext from './ContactContext';
 import contactReducer from './ContactReducer';
 import {
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
   ADD_CONTACT,
   DELETE_CONTACT,
   SET_CURRENT,
@@ -20,7 +22,7 @@ import {
 const ContactState = props => {
   const initialState = {
     //contacts array
-    contacts: [],
+    contacts: null,
     current: null,
     filtered: null,
     error: null
@@ -32,8 +34,23 @@ const ContactState = props => {
   //pass in contactReducer and intitalState
   const [state, dispatch] = useReducer(contactReducer, initialState);
   //action payloads
+  //Get Contacts
+  const getContacts = async () => {
+    try {
+      const res = await axios.get('/api/contacts');
+      //dispatch to reducer
+      dispatch({
+        type: GET_CONTACTS,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: CONTACT_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
   // Add Contact
-
   const addContact = async contact => {
     //create header for sending data
     const config = {
@@ -57,9 +74,26 @@ const ContactState = props => {
   };
 
   // Delete Contact
-  const deleteContact = id => {
+  const deleteContact = async id => {
+    try {
+      await axios.delete(`/api/contacts/${id}`);
+      //dispatch to reducer
+      dispatch({
+        type: DELETE_CONTACT,
+        payload: id
+      });
+    } catch (err) {
+      dispatch({
+        type: CONTACT_ERROR,
+        payload: err.response.msg
+      });
+    }
     //dispatch to reducer
-    dispatch({ type: DELETE_CONTACT, payload: id });
+  };
+
+  //Clear Contacts
+  const clearContacts = () => {
+    dispatch({ type: CLEAR_CONTACTS });
   };
   //Set Current Contact
   const setCurrent = contact => {
@@ -101,7 +135,9 @@ const ContactState = props => {
         clearCurrent,
         updateContact,
         filterContacts,
-        clearFilter
+        clearFilter,
+        getContacts,
+        clearContacts
       }}
     >
       {props.children}
