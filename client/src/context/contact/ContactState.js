@@ -90,7 +90,32 @@ const ContactState = props => {
     }
     //dispatch to reducer
   };
-
+  //Update Contact
+  const updateContact = async contact => {
+    //create header for sending data
+    const config = {
+      headers: {
+        'Contact-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.put(
+        `/api/contacts/${contact._id}`,
+        contact,
+        config
+      );
+      //dispatch to reducer
+      dispatch({
+        type: UPDATE_CONTACT,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: CONTACT_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
   //Clear Contacts
   const clearContacts = () => {
     dispatch({ type: CLEAR_CONTACTS });
@@ -106,11 +131,7 @@ const ContactState = props => {
     //dispatch to reducer
     dispatch({ type: CLEAR_CURRENT });
   };
-  //Update Contact
-  const updateContact = contact => {
-    //dispatch to reducer
-    dispatch({ type: UPDATE_CONTACT, payload: contact });
-  };
+
   //Filter Contacts
   const filterContacts = text => {
     //dispatch to reducer

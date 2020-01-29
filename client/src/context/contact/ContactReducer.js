@@ -30,7 +30,7 @@ export default (state, action) => {
         ...state,
         //take contacts array for each contact match ids then return action.payload (updated contact) else return contact as is
         contacts: state.contacts.map(contact =>
-          contact.id === action.payload.id ? action.payload : contact
+          contact._id === action.payload._id ? action.payload : contact
         ),
         loading: false
       };
