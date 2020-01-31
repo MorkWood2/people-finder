@@ -50,6 +50,16 @@ const Login = props => {
       <h1>
         Account <span className='text-primary'>Login</span>
       </h1>
+      <div className='border'>
+        <h3>You can log in with these credentials</h3>
+        <h2>👇👇👇</h2>
+        <h3>
+          👉 Email: <span>user@gmail.com</span>
+        </h3>
+        <h3>
+          👉 Password: <span>123456</span>
+        </h3>
+      </div>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='email'>Email</label>

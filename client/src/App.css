@@ -159,6 +159,11 @@ img {
 }
 
 /* Grid */
+.border {
+  border: 1px solid #ff5b38;
+  border-radius: 5px;
+  margin-top: 7px;
+}
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
